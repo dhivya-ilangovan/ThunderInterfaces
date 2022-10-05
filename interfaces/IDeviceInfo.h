@@ -45,7 +45,7 @@ namespace Exchange {
     };
 
     struct EXTERNAL IDeviceAudioCapabilities : virtual public Core::IUnknown {
-        enum { ID = ID_DEVICE_AUDIO_CAPABILITIES };
+        enum { ID = ID_DEVICE_CAPABILITIES_AUDIO };
 
         virtual ~IDeviceAudioCapabilities() override = default;
 
@@ -66,8 +66,8 @@ namespace Exchange {
             DIALOGUEENHANCER
         };
 
-        typedef RPC::IIteratorType<AudioCapability, ID_DEVICE_AUDIO_CAPABILITIES_AUDIO_CAPABILITY> IAudioCapabilityIterator;
-        typedef RPC::IIteratorType<MS12Capability, ID_DEVICE_AUDIO_CAPABILITIES_MS12_CAPABILITY> IMS12CapabilityIterator;
+        typedef RPC::IIteratorType<AudioCapability, ID_DEVICE_CAPABILITIES_AUDIO_CAPABILITY> IAudioCapabilityIterator;
+        typedef RPC::IIteratorType<MS12Capability, ID_DEVICE_CAPABILITIES_AUDIO_MS12_CAPABILITY> IMS12CapabilityIterator;
 
         virtual uint32_t SupportedAudioPorts(RPC::IStringIterator*& supportedAudioPorts /* @out */) const = 0;
         virtual uint32_t AudioCapabilities(const string& audioPort /* @in */, IAudioCapabilityIterator*& audioCapabilities /* @out */) const = 0;
@@ -76,7 +76,7 @@ namespace Exchange {
     };
 
     struct EXTERNAL IDeviceVideoCapabilities : virtual public Core::IUnknown {
-        enum { ID = ID_DEVICE_VIDEO_CAPABILITIES };
+        enum { ID = ID_DEVICE_CAPABILITIES_VIDEO };
 
         virtual ~IDeviceVideoCapabilities() override = default;
 
