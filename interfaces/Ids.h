@@ -250,11 +250,14 @@ namespace Exchange {
         ID_APPLICATION_NOTIFICATION                  = ID_APPLICATION + 1,
         ID_CONFIGURATION                             = ID_APPLICATION + 2,
 
-	ID_DEVICE_INFO                               = 0x000003B0,
-	ID_DEVICE_CAPABILITIES_AUDIO                 = ID_DEVICE_INFO + 1,
-        ID_DEVICE_CAPABILITIES_AUDIO_CAPABILITY      = ID_DEVICE_INFO + 2,
-        ID_DEVICE_CAPABILITIES_AUDIO_MS12_CAPABILITY = ID_DEVICE_INFO + 3,
-        ID_DEVICE_CAPABILITIES_VIDEO                 = ID_DEVICE_INFO + 4,        
+        ID_DEVICE_INFO                               = 0x000003B0,
+        ID_DEVICE_CAPABILITIES_AUDIO                 = ID_DEVICE_INFO + 1,
+        ID_DEVICE_CAPABILITIES_AUDIO_OUTPUT          = ID_DEVICE_INFO + 2,
+        ID_DEVICE_CAPABILITIES_AUDIO_CAPABILITY      = ID_DEVICE_INFO + 3,
+        ID_DEVICE_CAPABILITIES_AUDIO_MS12_CAPABILITY = ID_DEVICE_INFO + 4,
+        ID_DEVICE_CAPABILITIES_VIDEO                 = ID_DEVICE_INFO + 5,
+        ID_DEVICE_CAPABILITIES_VIDEO_OUTPUT          = ID_DEVICE_INFO + 6,
+        ID_DEVICE_CAPABILITIES_RESOLUTION            = ID_DEVICE_INFO + 7,
 
         ID_DIALSERVER                                = 0x000003C0,
         ID_DIALSERVER_APPLICATION                    = ID_DIALSERVER + 1,
@@ -277,7 +280,7 @@ namespace Exchange {
         ID_BUTLER                                    = 0x00000410,
         ID_BUTLER_NOTIFICATION                       = ID_BUTLER + 1,
 
-	// Network Tools
+        // Network Tools
         ID_NETWORKTOOLS                              = 0x00000420,
         ID_NETWORKTOOLS_CALLBACK                     = ID_NETWORKTOOLS + 1,
 

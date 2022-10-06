@@ -49,6 +49,15 @@ namespace Exchange {
 
         virtual ~IDeviceAudioCapabilities() override = default;
 
+        enum AudioOutput : uint8_t {
+            AUDIO_OTHER,
+            AUDIO_RF_MODULATOR,
+            AUDIO_ANALOG,
+            AUDIO_SPDIF, //over RCA or TOSLINK
+            AUDIO_HDMI,
+            AUDIO_DISPLAYPORT
+        };
+
         enum AudioCapability : uint8_t {
             AUDIOCAPABILITY_NONE,
             ATMOS,
@@ -66,19 +75,45 @@ namespace Exchange {
             DIALOGUEENHANCER
         };
 
+        typedef RPC::IIteratorType<AudioOutput, ID_DEVICE_CAPABILITIES_AUDIO_OUTPUT> IAudioOutputIterator;
         typedef RPC::IIteratorType<AudioCapability, ID_DEVICE_CAPABILITIES_AUDIO_CAPABILITY> IAudioCapabilityIterator;
         typedef RPC::IIteratorType<MS12Capability, ID_DEVICE_CAPABILITIES_AUDIO_MS12_CAPABILITY> IMS12CapabilityIterator;
 
-        virtual uint32_t SupportedAudioPorts(RPC::IStringIterator*& supportedAudioPorts /* @out */) const = 0;
-        virtual uint32_t AudioCapabilities(const string& audioPort /* @in */, IAudioCapabilityIterator*& audioCapabilities /* @out */) const = 0;
-        virtual uint32_t MS12Capabilities(const string& audioPort /* @in */, IMS12CapabilityIterator*& ms12Capabilities /* @out */) const = 0;
-        virtual uint32_t SupportedMS12AudioProfiles(const string& audioPort /* @in */, RPC::IStringIterator*& supportedMS12AudioProfiles /* @out */) const = 0;
+        virtual uint32_t SupportedAudioPorts(IAudioOutputIterator*& supportedAudioOutputs /* @out */) const = 0;
+        virtual uint32_t AudioCapabilities(const AudioOutput audioOutput /* @in */, IAudioCapabilityIterator*& audioCapabilities /* @out */) const = 0;
+        virtual uint32_t MS12Capabilities(const AudioOutput audioOutput /* @in */, IMS12CapabilityIterator*& ms12Capabilities /* @out */) const = 0;
+        virtual uint32_t SupportedMS12AudioProfiles(const AudioOutput audioOutput /* @in */, RPC::IStringIterator*& supportedMS12AudioProfiles /* @out */) const = 0;
     };
 
     struct EXTERNAL IDeviceVideoCapabilities : virtual public Core::IUnknown {
         enum { ID = ID_DEVICE_CAPABILITIES_VIDEO };
 
         virtual ~IDeviceVideoCapabilities() override = default;
+
+        enum VideoOutput : uint8_t {
+            VIDEO_OTHER,
+            VIDEO_RF_MODULATOR,
+            VIDEO_COMPOSITE, // also composite over SCART
+            VIDEO_SVIDEO,
+            VIDEO_COMPONENT,
+            VIDEO_SCART_RGB,
+            VIDEO_HDMI,
+            VIDEO_DISPLAYPORT // also DisplayPort over USB-C
+        };
+
+	enum ScreenResolution : uint8_t {
+	    ScreenResolution_Unknown = 0,
+            ScreenResolution_480i = 1,
+            ScreenResolution_480p = 2,
+            ScreenResolution_720p = 3,
+            ScreenResolution_720p50Hz = 4,
+            ScreenResolution_1080p24Hz = 5,
+            ScreenResolution_1080i50Hz = 6,
+            ScreenResolution_1080p50Hz = 7,
+            ScreenResolution_1080p60Hz = 8,
+            ScreenResolution_2160p50Hz = 9,
+            ScreenResolution_2160p60Hz = 10
+        };
 
         enum CopyProtection : uint8_t {
             HDCP_UNAVAILABLE,
@@ -88,10 +123,13 @@ namespace Exchange {
             HDCP_22
         };
 
-        virtual uint32_t SupportedVideoDisplays(RPC::IStringIterator*& supportedVideoDisplays /* @out */) const = 0;
-        virtual uint32_t DefaultResolution(const string& videoDisplay /* @in */, string& defaultResolution /* @out */) const = 0;
-        virtual uint32_t SupportedResolutions(const string& videoDisplay /* @in */, RPC::IStringIterator*& supportedResolutions /* @out */) const = 0;
-        virtual uint32_t SupportedHdcp(const string& videoDisplay /* @in */, CopyProtection& supportedHDCPVersion /* @out */) const = 0;
+        typedef RPC::IIteratorType<VideoOutput, ID_DEVICE_CAPABILITIES_VIDEO_OUTPUT> IVideoOutputIterator;
+        typedef RPC::IIteratorType<ScreenResolution, ID_DEVICE_CAPABILITIES_RESOLUTION> IOutputResolutionIterator;
+
+        virtual uint32_t SupportedVideoDisplays(IVideoOutputIterator*& supportedVideoOutputs /* @out */) const = 0;
+        virtual uint32_t DefaultResolution(const VideoOutput videoOutput /* @in */, ScreenResolution& defaultResolution /* @out */) const = 0;
+        virtual uint32_t SupportedResolutions(const VideoOutput videoOutput /* @in */, IOutputResolutionIterator*& supportedResolutions /* @out */) const = 0;
+        virtual uint32_t SupportedHdcp(const VideoOutput videoOutput /* @in */, CopyProtection& supportedHDCPVersion /* @out */) const = 0;
         virtual uint32_t HostEDID(string& edid /* @out */) const = 0;
         virtual uint32_t HDR(bool& supportsHDR /*@out*/) const = 0;
         virtual uint32_t Atmos(bool& supportsAtmos /*@out*/) const = 0;
