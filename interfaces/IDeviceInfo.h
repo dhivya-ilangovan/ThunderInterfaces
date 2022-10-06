@@ -89,10 +89,10 @@ namespace Exchange {
         };
 
         virtual uint32_t SupportedVideoDisplays(RPC::IStringIterator*& supportedVideoDisplays /* @out */) const = 0;
-        virtual uint32_t HostEDID(string& edid /* @out */) const = 0;
         virtual uint32_t DefaultResolution(const string& videoDisplay /* @in */, string& defaultResolution /* @out */) const = 0;
         virtual uint32_t SupportedResolutions(const string& videoDisplay /* @in */, RPC::IStringIterator*& supportedResolutions /* @out */) const = 0;
         virtual uint32_t SupportedHdcp(const string& videoDisplay /* @in */, CopyProtection& supportedHDCPVersion /* @out */) const = 0;
+        virtual uint32_t HostEDID(string& edid /* @out */) const = 0;
         virtual uint32_t HDR(bool& supportsHDR /*@out*/) const = 0;
         virtual uint32_t Atmos(bool& supportsAtmos /*@out*/) const = 0;
         virtual uint32_t CEC(bool& supportsCEC /*@out*/) const = 0;

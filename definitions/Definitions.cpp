@@ -170,6 +170,23 @@ ENUM_CONVERSION_BEGIN(Exchange::IBrightness::Brightness)
     { Exchange::IBrightness::SdrToHdrGraphicsBrightness_Max, _TXT("max") },
 ENUM_CONVERSION_END(Exchange::IBrightness::Brightness)
 
+ENUM_CONVERSION_BEGIN(Exchange::IDeviceAudioCapabilities::AudioCapability)
+    { Exchange::IDeviceAudioCapabilities::AudioCapability::AUDIOCAPABILITY_NONE, _TXT("audiocapability_none") },
+    { Exchange::IDeviceAudioCapabilities::AudioCapability::ATMOS, _TXT("atmos") },
+    { Exchange::IDeviceAudioCapabilities::AudioCapability::DD, _TXT("dd") },
+    { Exchange::IDeviceAudioCapabilities::AudioCapability::DDPLUS, _TXT("ddplus") },
+    { Exchange::IDeviceAudioCapabilities::AudioCapability::DAD, _TXT("dad") },
+    { Exchange::IDeviceAudioCapabilities::AudioCapability::DAPV2, _TXT("dapv2") },
+    { Exchange::IDeviceAudioCapabilities::AudioCapability::MS12, _TXT("ms12") },
+ENUM_CONVERSION_END(Exchange::IDeviceAudioCapabilities::AudioCapability)
+
+ENUM_CONVERSION_BEGIN(Exchange::IDeviceAudioCapabilities::MS12Capability)
+    { Exchange::IDeviceAudioCapabilities::MS12Capability::MS12CAPABILITY_NONE, _TXT("ms12capability_none") },
+    { Exchange::IDeviceAudioCapabilities::MS12Capability::DOLBYVOLUME, _TXT("dolbyvolume") },
+    { Exchange::IDeviceAudioCapabilities::MS12Capability::INTELIGENTEQUALIZER, _TXT("inteligentequalizer") },
+    { Exchange::IDeviceAudioCapabilities::MS12Capability::DIALOGUEENHANCER, _TXT("dialogueenhancer") },
+ENUM_CONVERSION_END(Exchange::IDeviceAudioCapabilities::MS12Capability)
+
 ENUM_CONVERSION_BEGIN(Exchange::IDeviceVideoCapabilities::CopyProtection)
     { Exchange::IDeviceVideoCapabilities::CopyProtection::HDCP_UNAVAILABLE, _TXT("unavailable") },
     { Exchange::IDeviceVideoCapabilities::CopyProtection::HDCP_14, _TXT("hdcp_14") },
