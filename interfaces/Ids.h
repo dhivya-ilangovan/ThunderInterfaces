@@ -327,8 +327,12 @@ namespace Exchange {
         ID_LISA_HANDLE_RESULT                        = ID_LISA + 14,
 
         ID_RUST_BRIDGE                               = 0x000004B0,
-        ID_RUST_BRIDGE_NOTIFICATION                  = ID_RUST_BRIDGE + 1
+        ID_RUST_BRIDGE_NOTIFICATION                  = ID_RUST_BRIDGE + 1,
 
+        ID_WIFICONTROL                               = 0x000004C0,
+        ID_WIFICONTROL_NETWORK_INFO_ITERATOR         = ID_WIFICONTROL + 1,
+        ID_WIFICONTROL_CONFIG_INFO_ITERATOR          = ID_WIFICONTROL + 2,
+        ID_WIFICONTROL_NOTIFICATION                  = ID_WIFICONTROL + 3
     };
 }
 }
