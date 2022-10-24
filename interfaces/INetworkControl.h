@@ -30,32 +30,18 @@ namespace Exchange {
         enum { ID = ID_NETWORKCONTROL };
 
         enum ModeType : uint8_t {
-            MANUAL,
             STATIC,
             DYNAMIC
         };
 
         enum StatusType : uint8_t {
-            CREATED,
-            UPDATED,
-            REMOVED,
-            CONNECTED,
-            IPASSIGNED,
-            CONNECTIONFAILED
-        };
-
-        struct ConnectionInfo {
-            string name;
-            string address;
-            StatusType status;
+            UNAVIALBALE,
+            AVAILABLE
         };
 
         struct NetworkInfo {
-            string interface;
             string address;
-            string gateway;
-            string broadcast;
-            string dns;
+            string defaultGateway;
             uint8_t mask;
             ModeType mode;
         };
@@ -65,15 +51,19 @@ namespace Exchange {
         // @event
         struct EXTERNAL INotification : virtual public Core::IUnknown {
             enum { ID = ID_NETWORKCONTROL_NOTIFICATION };
-            virtual void ConnectionChange(const ConnectionInfo& connectionInfo) = 0;
+            virtual void Update(const string& interfaceName) = 0;
         };
 
         virtual uint32_t Register(INetworkControl::INotification* sink) = 0;
         virtual uint32_t Unregister(INetworkControl::INotification* sink) = 0;
 
+
         // @property
-        virtual uint32_t Network(const string& index /* @index */, INetworkInfoIterator*& networkInfo /* @out */) const = 0;
-        virtual uint32_t Network(const string& index /* @index */, INetworkInfoIterator* const& networkInfo /* @in */) = 0;
+        virtual uint32_t Interfaces(RPC::IStringIterator*& interfaces /* @out */) const;
+
+        // @property
+        virtual uint32_t Network(const string& interface /* @index */, INetworkInfoIterator*& networkInfo /* @out */) const = 0;
+        virtual uint32_t Network(const string& interface /* @index */, INetworkInfoIterator* const& networkInfo /* @in */) = 0;
 
         // @property
         virtual uint32_t DNS(RPC::IStringIterator*& dns /* @out */) const;
