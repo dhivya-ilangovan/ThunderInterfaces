@@ -68,11 +68,13 @@ namespace Exchange {
                 virtual bool Next() = 0;
                 virtual INetworkInfo* Current() = 0;
             };
+
+            ~INetworkInfo() override = default;
             virtual uint32_t SSID(string& ssid /* @out */) const = 0;
             virtual uint32_t BSSID(uint64_t& bssid /* @out */) const = 0;
             virtual uint32_t Frequency(uint32_t& frequency /* @out */) const = 0;
             virtual int32_t Signal(uint32_t& signal /* @out */) const = 0;
-            virtual uint32_t Pairs(IPairIterator*& pairs /* @out */) const = 0;
+            //virtual uint32_t Pairs(IPairIterator*& pairs /* @out */) const = 0;
         };
 
         struct ConfigInfo {
@@ -90,12 +92,15 @@ namespace Exchange {
         // @event
         struct EXTERNAL INotification : virtual public Core::IUnknown {
             enum { ID = ID_WIFICONTROL_NOTIFICATION };
+            ~INotification() override = default;
 
             // @brief Notifies that Network were added, removed or modified.
             virtual void NetworkChange(INetworkInfo::IIterator* networkInfoList) = 0;
             // @brief Notifies that wifi connection changes
             virtual void ConnectionChange(const string& ssid) = 0;
         };
+
+        ~IWifiControl() override = default;
 
         virtual uint32_t Register(IWifiControl::INotification* sink) = 0;
         virtual uint32_t Unregister(IWifiControl::INotification* sink) = 0;

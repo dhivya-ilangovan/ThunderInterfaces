@@ -35,7 +35,7 @@ namespace Exchange {
         };
 
         enum StatusType : uint8_t {
-            UNAVIALBALE,
+            UNAVAILABLE,
             AVAILABLE
         };
 
@@ -47,36 +47,43 @@ namespace Exchange {
         };
 
         using INetworkInfoIterator = RPC::IIteratorType<NetworkInfo, ID_NETWORKCONTROL_NETWORK_INFO_ITERATOR>;
+        using IStringIterator = RPC::IIteratorType<string, RPC::ID_STRINGITERATOR>;
 
         // @event
         struct EXTERNAL INotification : virtual public Core::IUnknown {
             enum { ID = ID_NETWORKCONTROL_NOTIFICATION };
+            ~INotification() override = default;
+
             virtual void Update(const string& interfaceName) = 0;
         };
+
+        ~INetworkControl() override = default;
 
         virtual uint32_t Register(INetworkControl::INotification* sink) = 0;
         virtual uint32_t Unregister(INetworkControl::INotification* sink) = 0;
 
+        // @property
+        virtual uint32_t Interfaces(IStringIterator*& interfaces /* @out */) const = 0;
 
         // @property
-        virtual uint32_t Interfaces(RPC::IStringIterator*& interfaces /* @out */) const;
+        virtual uint32_t Status(const string& interface /* @index */, StatusType& status /* @out */) const = 0;
 
         // @property
         virtual uint32_t Network(const string& interface /* @index */, INetworkInfoIterator*& networkInfo /* @out */) const = 0;
         virtual uint32_t Network(const string& interface /* @index */, INetworkInfoIterator* const& networkInfo /* @in */) = 0;
 
         // @property
-        virtual uint32_t DNS(RPC::IStringIterator*& dns /* @out */) const;
-        virtual uint32_t DNS(RPC::IStringIterator* const& dns /* @in */);
+        virtual uint32_t DNS(IStringIterator*& dns /* @out */) const = 0;
+        virtual uint32_t DNS(IStringIterator* const& dns /* @in */) = 0;
 
         // @property
-        virtual uint32_t Up(const string& interface /* @index */, bool& up /* @out */) const; 
-        virtual uint32_t Up(const string& interface /* @index */, const bool up /* @in */);
+        virtual uint32_t Up(const string& interface /* @index */, bool& up /* @out */) const = 0;
+        virtual uint32_t Up(const string& interface /* @index */, const bool up /* @in */) = 0;
 
         virtual uint32_t Flush(const string& interface) = 0;
-        virtual uint32_t Assign(const string& interface) = 0;
-        virtual uint32_t Request(const string& interface) = 0;
-        virtual uint32_t Reload(const string& interface) = 0;
+
+        // @json:omit
+        virtual uint32_t Initialize(PluginHost::IShell* service) = 0;
     };
 }
 }
