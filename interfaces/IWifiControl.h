@@ -74,7 +74,7 @@ namespace Exchange {
             virtual uint32_t BSSID(uint64_t& bssid /* @out */) const = 0;
             virtual uint32_t Frequency(uint32_t& frequency /* @out */) const = 0;
             virtual int32_t Signal(uint32_t& signal /* @out */) const = 0;
-            //virtual uint32_t Pairs(IPairIterator*& pairs /* @out */) const = 0;
+            virtual uint32_t Pairs(IPairIterator*& pairs /* @out */) const = 0;
         };
 
         struct ConfigInfo {
